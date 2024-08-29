@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         cardsRecyclerView.layoutManager = gridLayoutManager
 
 
-        val card1 = RecyclerItem("Array", "X Questions" , R.drawable.array)
+        val card1 = RecyclerItem("Arrays", "X Questions" , R.drawable.array)
         val card2 = RecyclerItem("LinkList", "Y Questions" , R.drawable.linklist)
         val card3 = RecyclerItem("Binary Trees", "Z Questions" , R.drawable.binarytree)
         val card4 = RecyclerItem("Recursion", "W Questions" , R.drawable.recursion)
