@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayRecyclerView(){
         val cardsRecyclerView:RecyclerView =findViewById<RecyclerView>(R.id.MyRecylerView)
-        val gridLayoutManager = GridLayoutManager(this , 2 , GridLayoutManager.HORIZONTAL , false)
+        val gridLayoutManager = GridLayoutManager(this , 2 , GridLayoutManager.VERTICAL, false)
         cardsRecyclerView.layoutManager = gridLayoutManager
 
 
