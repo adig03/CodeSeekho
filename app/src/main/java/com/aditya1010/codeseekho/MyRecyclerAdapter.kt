@@ -33,8 +33,11 @@ class MyRecyclerAdapter(context: MainActivity, val rvItems:List<RecyclerItem>)
         holder.itemImage.setImageResource(item.topicImage)
         holder.itemdesc.text = item.topicDesc
         holder.itemTitle.text =item.topicName
+        holder.itemView.alpha = 0f
+        holder.itemView.animate().alpha(1f).setDuration(500).start()
 
 
     }
+
 
 }

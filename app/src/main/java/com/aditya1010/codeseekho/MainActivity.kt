@@ -35,11 +35,15 @@ class MainActivity : AppCompatActivity() {
 
 
         val card1 = RecyclerItem("Arrays", "X Questions" , R.drawable.array)
-        val card2 = RecyclerItem("LinkList", "Y Questions" , R.drawable.linklist)
+        val card2 = RecyclerItem("Linked List", "Y Questions" , R.drawable.linklist)
         val card3 = RecyclerItem("Binary Trees", "Z Questions" , R.drawable.binarytree)
         val card4 = RecyclerItem("Recursion", "W Questions" , R.drawable.recursion)
         val card5 = RecyclerItem("Functions", "V Questions" , R.drawable.functions)
         val card6= RecyclerItem("Stacks", "L Questions" , R.drawable.stacks)
+        val card7 = RecyclerItem("Strings" ,"Z questions" , R.drawable.string)
+        val card8 = RecyclerItem("Binary Search" ,"Z questions" , R.drawable.binarysearch)
+
+
 
 
         val lowerGrid = ArrayList<RecyclerItem>()
@@ -51,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         lowerGrid.add(card4)
         lowerGrid.add(card5)
         lowerGrid.add(card6)
+        lowerGrid.add(card7)
+        lowerGrid.add(card8)
 
         val adapter = MyRecyclerAdapter(this , lowerGrid)
         cardsRecyclerView.adapter=adapter
@@ -62,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         val grid:GridView = findViewById<GridView>(R.id.GridView)
 
         val gridItem1 = GridItem("Notes" , R.drawable.notes)
-        val gridItem2 = GridItem("History" , R.drawable.history)
+        val gridItem2 = GridItem("Quizes" , R.drawable.quiz)
         val gridItem3 = GridItem("Marked Questions" ,R.drawable.markesques)
         val gridItem4 = GridItem("Progress" , R.drawable.progress)
 
