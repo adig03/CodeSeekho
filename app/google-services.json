@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "661990623778",
+    "project_id": "codeseekho-94cfc",
+    "storage_bucket": "codeseekho-94cfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661990623778:android:9173d1db2b905ee80c587b",
+        "android_client_info": {
+          "package_name": "com.aditya1010.codeseekho"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp8z6_NDiTvd1FjUWRW_wV6nmir2vf4tA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

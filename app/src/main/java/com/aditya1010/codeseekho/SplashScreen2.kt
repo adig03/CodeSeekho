@@ -7,8 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class SplashScreen2 : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,14 +34,21 @@ class SplashScreen2 : AppCompatActivity() {
         // Start a new thread to simulate a splash screen delay
         Thread {
             try {
-                Thread.sleep(5000) // Pause for 5 seconds
+                Thread.sleep(1000) // Pause for 5 seconds
             } catch (ex: Exception) {
                 ex.printStackTrace()
             } finally {
                 // Move to the main activity after the splash screen
-                val intent = Intent(this@SplashScreen2, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Close the splash screen activity
+                auth = Firebase.auth
+               val currentUser = auth.currentUser
+                if(currentUser != null){
+                    startActivity(Intent(this , MainActivity::class.java))
+                    finish()
+                }
+                else{
+                    startActivity(Intent(this , LoginPage::class.java))
+                    finish()
+                }
             }
         }.start()
     }

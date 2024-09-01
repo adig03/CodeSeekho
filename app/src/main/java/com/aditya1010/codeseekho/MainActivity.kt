@@ -1,19 +1,28 @@
 package com.aditya1010.codeseekho
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.GridLayout
 import android.widget.GridView
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
+    private  var dataBase = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-
+        fetchUserData()
 
         //display grid
         displayGrid()
@@ -23,7 +32,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        val signout:Button = findViewById<Button>(R.id.SignOut)
 
+        signout.setOnClickListener {
+            signOut()
+        }
 
 
     }
@@ -41,7 +54,11 @@ class MainActivity : AppCompatActivity() {
         val card5 = RecyclerItem("Functions", "V Questions" , R.drawable.functions)
         val card6= RecyclerItem("Stacks", "L Questions" , R.drawable.stacks)
         val card7 = RecyclerItem("Strings" ,"Z questions" , R.drawable.string)
-        val card8 = RecyclerItem("Binary Search" ,"Z questions" , R.drawable.binarysearch)
+        val card8 = RecyclerItem("Graphs" ,"v questions" , R.drawable.graph)
+        val card9= RecyclerItem("DP" ,"M questions" , R.drawable.dynamicprogramming)
+        val card10 = RecyclerItem("Greedy" ,"F questions" , R.drawable.greedy)
+        val card11 = RecyclerItem("Heaps" ,"Y questions" , R.drawable.heap)
+        val card12 = RecyclerItem("Bit Manipulation" ,"E questions" , R.drawable.bitmanipulation)
 
 
 
@@ -57,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         lowerGrid.add(card6)
         lowerGrid.add(card7)
         lowerGrid.add(card8)
+        lowerGrid.add(card9)
+        lowerGrid.add(card10)
+        lowerGrid.add(card11)
+        lowerGrid.add(card12)
 
         val adapter = MyRecyclerAdapter(this , lowerGrid)
         cardsRecyclerView.adapter=adapter
@@ -85,4 +106,41 @@ class MainActivity : AppCompatActivity() {
         grid.adapter = MyAdapter
 
     }
-}
+
+    private fun signOut(){
+        var signout:Button = findViewById<Button>(R.id.SignOut)
+
+
+            // Show a confirmation dialog before signing out
+            AlertDialog.Builder(this)
+                .setTitle("Sign Out")
+                .setMessage("Are you sure you want to sign out?")
+                .setPositiveButton("Yes") { dialog, which ->
+                    // If the user confirms, proceed with sign out
+                    val firebaseAuth = FirebaseAuth.getInstance()
+                    firebaseAuth.signOut()
+
+                    // Redirect to the login screen
+                    val intent = Intent(this, LoginPage::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish() // Optional: Close the current activity
+                }
+                .setNegativeButton("No") { dialog, which ->
+                    // If the user cancels, just dismiss the dialog
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
+    private fun fetchUserData(){
+        val userName:TextView = findViewById<TextView>(R.id.mainUserName)
+        dataBase.collection(Firebase.auth.currentUser?.uid.toString()).
+        document(Firebase.auth.currentUser?.uid.toString()).get().addOnSuccessListener{ it->
+            val Name :String? =it.getString("name")
+
+            userName.text = Name.toString()
+
+        }
+    }
+    }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -34,7 +35,8 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures{
-        dataBinding = true
+
+        viewBinding =true
     }
 }
 
@@ -45,11 +47,14 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation ("com.airbnb.android:lottie:6.5.1")
+    implementation ("com.google.android.material:material:1.10.0")
 
 }
