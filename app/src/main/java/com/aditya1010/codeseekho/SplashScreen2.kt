@@ -34,7 +34,7 @@ class SplashScreen2 : AppCompatActivity() {
         // Start a new thread to simulate a splash screen delay
         Thread {
             try {
-                Thread.sleep(1000) // Pause for 5 seconds
+                Thread.sleep(5000) // Pause for 5 seconds
             } catch (ex: Exception) {
                 ex.printStackTrace()
             } finally {

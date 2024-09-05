@@ -25,8 +25,8 @@ class signUpActivity : AppCompatActivity() {
                binding.signuppassword.editText?.text.toString())
             if (binding.UserName.text.toString().isEmpty() ||
                 binding.signupEmail.text.toString().isEmpty() ||
-                binding.signuppassword.editText?.text.toString().isEmpty()||
-                binding.phoneNumber.text.toString().isEmpty()){
+                binding.signuppassword.editText?.text.toString().isEmpty()
+                ){
                 Toast.makeText(this , "Fill All Details" , Toast.LENGTH_SHORT).show()
             }
             else{

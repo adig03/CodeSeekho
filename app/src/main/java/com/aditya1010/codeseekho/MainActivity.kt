@@ -2,6 +2,8 @@ package com.aditya1010.codeseekho
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.GridView
@@ -11,19 +13,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aditya1010.codeseekho.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
+    private val handler=Handler(Looper.getMainLooper())
+    private val typingDelay=100L
     private  var dataBase = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        fetchUserData()
-
+       // fetchUserData()
+        fetchAndAnimateText()
         //display grid
         displayGrid()
 
@@ -142,5 +147,43 @@ class MainActivity : AppCompatActivity() {
             userName.text = Name.toString()
 
         }
+    }
+    private fun fetchAndAnimateText() {
+        val db = FirebaseFirestore.getInstance()
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+
+        val userName:TextView = findViewById<TextView>(R.id.mainUserName)
+        db.collection(Firebase.auth.currentUser?.uid.toString()).document(Firebase.auth.currentUser?.uid.toString())
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val name = documentSnapshot.getString("name") ?: "Name not available"
+                    typeText(name)
+                } else {
+                    userName.text = "No such document"
+                }
+            }
+            .addOnFailureListener { exception ->
+                userName.text = "Error fetching data: ${exception.message}"
+            }
+    }
+
+    private fun typeText(text: String) {
+        val textView: TextView = findViewById<TextView>(R.id.mainUserName)
+        val length = text.length
+        var index = 0
+
+        val runnable = object : Runnable {
+            override fun run() {
+                val end = (index + 1).coerceAtMost(length)
+                textView.text = text.substring(0, end)
+                index = end
+
+                if (index < length) {
+                    handler.postDelayed(this, typingDelay)
+                }
+            }
+        }
+        handler.post(runnable)
     }
     }
